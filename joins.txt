@@ -1,0 +1,55 @@
+create database joins;
+use joins;                # Inner join 
+create table course(id int primary key, course_name varchar(50));
+insert into course(id, course_name) values (1, 'aggriculture'), (2, 'BBA'), (3, 'Msc'), (4, 'Mtech'), (5, 'Bcom'), (6, 'ME');
+select * from course;                                                                                    
+
+create table student(std_id int, std_name varchar(50), std_age int, id int, primary key(std_id),
+ FOREIGN KEY (id) REFERENCES course(id));
+insert into student(std_id, std_name, std_age, id) values (1, 'sujit', 22, 2), (2, 'teju', 20, 1),
+ (3, 'nishit', 24, 2), (4, 'zain', 22, 4), (5, 'bob', 25, 1);
+ select * from student;
+ select * from student inner join course on student.id=course.id;
+ select student.id, std_name, course_name from student inner join course on student.id=course.id;
+--------------------------------------------------------------------------------------------------------       
+                                  # Left join
+use joins;             
+create table customer(cid int primary key, name varchar(50), mail varchar(50));
+insert into customer(cid, name, mail) values (1, 'vikas', 'v@gmail.com'), (2, 'ajay', 'aja@gmail.com'), (3, 'priyanka', 'p@gmail.com'),
+(4, 'subhan', 's@gmailss.com'), (5, 'huma', 'h@gmail.com'), (6, 'vpul', 'vipu@gmail.com');
+select * from customer;
+
+create table orders(oid int primary key, order_date date, amount int, cid int, foreign key(cid) references customer(cid));
+insert into orders(oid, order_date, amount, cid) values(1, '2022-12-10', 3090, 2), (2, '2022-11-01', 2000, 1),
+(3, '2022-02-10', 4990, 2), (4, '2022-08-20', 5000, 5), (5, '2022-12-19', 7300, 1);
+select * from orders;
+
+select * from orders left join customer on orders.cid=customer.cid;
+select orders.oid, name, order_date, amount from customer left join orders on customer.cid=orders.cid;
+-----------------------------------------------------------------------------------------------------------
+                               #Right join
+use joins;             
+create table customers(cid int primary key, name varchar(50), mail varchar(50));
+insert into customers(cid, name, mail) values (1, 'kasim', 'k@gmail.com'), (2, 'ajay', 'aja@gmail.com'), (3, 'priyanka', 'p@gmail.com'),
+(4, 'sumita', 's@mmgmail.com'), (5, 'huma', 'h@gmail.com'), (6, 'viraj', 'vir@gmail.com');
+select * from customers;
+
+create table orderss(oid int primary key, order_date date, amount int, cid int, foreign key(cid) references customer(cid));
+insert into orderss(oid, order_date, amount, cid) values(1, '2022-11-10', 3090, 2), (2, '2022-11-01', 2000, 1),
+(3, '2022-05-10', 4990, 2), (4, '2022-09-20', 5000, 5), (5, '2022-12-19', 7300, 1);
+select * from orderss;
+
+select * from customers right join orderss on orderss.cid=customers.cid;
+select orderss.oid, name, order_date, amount from customers right join orderss on customers.cid=orderss.cid;  
+------------------------------------------------------------------------------------------------------------
+
+
+            # natural join 
+create table employee(eid int primary key, name varchar(50), salary int);
+insert into employee(eid, name, salary) values (1, 'vilas', 30000), (2, 'ajay', 28000), (3, 'pri', 34000),
+(4, 'subhan', 40000), (5, 'huma', 25000), (6, 'vpul', 35000);
+select * from employee;
+
+create table department(did int primary key, department varchar(50), eid int, foreign key (eid) references employee(eid));
+insert into department(did, department, eid) values (1, 'research', 2), (2, 'training', 1), (3, 'data analyst', 2);
+select * from employee natural join department ;

@@ -36,9 +36,9 @@ def insert_values():
     user_id = int(input("Enter user_id: "))
     name = input("Enter name: ")
     phone = input("Enter phone: ")
-    address = int(input("Enter address: "))
-    insert_data = 'INSERT INTO Customers(name, phone, adress) values(%s ,%s, %s, %S)'
-    data_value = (user_id, name, phone, adress)
+    address = input("Enter address: ")
+    insert_data = 'INSERT INTO Customers(user_id, name, phone, address) values(%s ,%s, %s, %s)'
+    data_value = (user_id, name, phone, address)
     conn = connection.cursor()
     conn.execute(insert_data, data_value)
     connection.commit()
@@ -82,7 +82,7 @@ def insert_values_item():
                            database='online_shopy'
                            )
     item_id = int(input("Enter item_id: "))
-    category_id = input("Enter category_id: ")
+    category_id = int(input("Enter category_id: "))
     item_name = input("Enter items name: ")
     price = int(input("Enter price: "))
     insert_data = 'INSERT INTO Items(item_id, category_id, item_name, price) values(%s, %s ,%s, %s)'
@@ -129,9 +129,9 @@ def insert_values_in_history_table():
                            database='online_shopy'
                            )
     order_history_id = int(input("Enter order history id: "))
-    user_id = input("Enter user id: ")
-    item_id = input("Enter item id: ")
-    order_date = int(input("Enter order date: "))
+    user_id = int(input("Enter user id: "))
+    item_id = int(input("Enter item id: "))
+    order_date = input("Enter order date: ")
     insert_data = 'INSERT INTO OrderHistory(order_history_id, user_id, item_id, order_date) values(%s, %s ,%s, %s)'
     data_value = (order_history_id, user_id, item_id, order_date)
     conn = connection.cursor()
@@ -152,7 +152,7 @@ def display_table_query_history():
             print(row)
 
 if __name__ == '__main__':
-    create_database()
+    # create_database()
     # create_table()
     # insert_values()
     # display_table_query()
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     # create_table_item()
     # insert_values_item()
     # display_table_query_item()
-
+    #
     # create_table_order_history()
     # insert_values_in_history_table()
-    # display_table_query_history()
+    display_table_query_history()

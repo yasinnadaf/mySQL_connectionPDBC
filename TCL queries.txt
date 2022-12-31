@@ -1,0 +1,40 @@
+create database sample1;
+use sample1;
+start transaction;
+create table students_record(id int auto_increment, name varchar(50), age varchar(50), city varchar(50), primary key(id));
+insert into students_record(name, age, city) 
+values('zain', 24, 'mumbai'),
+('bob', 21,'pune'),
+('rahul', 23,  'bijapur'),
+('sudhi', 22, 'hydrabad'),
+('rubi', 20, 'pune');
+select * from students_record;
+commit;
+start transaction;
+update students_record set name="rubi" where id=3;
+SET SQL_SAFE_UPDATES=0;
+insert into students_record(name, age, city) 
+values('zarinn', 26, 'kolhapur');
+delete from students_record where id = 4;
+select * from students_record;
+rollback;
+select * from students_record;
+update students_record set name="rubi" where id=3;
+insert into students_record(name, age, city) 
+values('zarinn', 26, 'kolhapur');
+delete from students_record where id = 4;
+commit;
+rollback;
+select * from students_record;
+start transaction;
+savepoint initial;
+insert into students_record(name, age, city) 
+values('rahul', 22, 'solapur');
+savepoint ins;
+update students_record set name="rumi" where id=5;
+savepoint upd;
+delete from students_record where id = 4;
+savepoint del;
+select * from students_record;
+rollback to upd;
+select * from students_record;

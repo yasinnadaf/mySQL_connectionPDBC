@@ -45,7 +45,7 @@ def max_salary():
                            password='Yasin@786',
                            database='Departments'
                            )
-    subquery_for_max_salary = 'select dept from emp_table where salary=(select max(salary) from emp_table)'
+    subquery_for_max_salary = 'select dept from emp_table where salary=(select * from emp_table)'
     cursor = connection.cursor()
     cursor.execute(subquery_for_max_salary)
     res = cursor.fetchall()
@@ -86,12 +86,13 @@ def update_subquery():
                            password='Yasin@786',
                            database='Departments'
                            )
-    subquery_update = 'update emp_table set salary=salary*2 where age in (select age from emp_table where age >= 22)'
+    subquery_update = 'update emp_table set salary=39000 where emp_id=(select emp_id from emp_table where name="raju")'
     cursor = connection.cursor()
     cursor.execute(subquery_update)
     res = cursor.fetchall()
     for row in res:
         print(row)
+
 
 def delete_subquery():
     connection = c.connect(host='localhost',
@@ -99,7 +100,7 @@ def delete_subquery():
                            password='Yasin@786',
                            database='Departments'
                            )
-    delete_subquery = 'delete from emp_table where salary=(select from emp_table where max(salary))'
+    delete_subquery = 'delete from emp_table where salary<(select max(salary) from emp_table)'
     cursor = connection.cursor()
     cursor.execute(delete_subquery)
     res = cursor.fetchall()
@@ -122,15 +123,15 @@ def display_table_query():
 if __name__ == '__main__':
     # create_table()
     # insert_into_table()
-    display_table_query()
+    # display_table_query()
 
     #ex1
     # max_salary()
     #2
     # min_salary_dept()
     #3
-    second_higest_salary()
+    # second_higest_salary()
     # ex4
     # update_subquery()
     #ex5
-    # delete_subquery()
+    delete_subquery()
